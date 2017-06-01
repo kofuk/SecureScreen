@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Copyright 2017 KoFuk
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+       http://www.apache.org/licenses/LICENSE-2.0
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<resources>
+    <string name="app_name">SecureScreen</string>
+    <string name="notification_title">SecureScreenを開始</string>
+    <string name="notification_message">現在の画面に固定します</string>
+    <string name="show_notification">通知に表示</string>
+    <string name="show_notification_message">通知をタップして画面を固定します</string>
+    <string name="start_on_boot">起動時に開始</string>
+    <string name="start_on_boot_true_summary">起動時に通知を表示する</string>
+    <string name="start_on_boot_false_summary">起動時に通知を表示しない</string>
+    <string name="version">SecureScreenバージョン</string>
+    <string name="finish_secure_screen">Secure Screenを終了</string>
+    <string name="secure_screen_finished">SecureScreenを終了しました</string>
+    <string name="pin_enabled">SecureScreen終了時にPINを要求する</string>
+    <string name="pin_disabled">SecureScreen終了時にPINを要求しない</string>
+    <string name="current_pin">現在のPIN</string>
+    <string name="new_pin">新しいPIN</string>
+    <string name="new_pin_confirm">新しいPINの確認</string>
+    <string name="done">完了</string>
+    <string name="backspace">バックスペース</string>
+    <string name="overlay_permission_denied">必要な権限が拒否されました</string>
+    <string name="settings">設定</string>
+    <string name="info">情報</string>
+    <string name="oss_license">オープンソースライセンス</string>
+</resources>

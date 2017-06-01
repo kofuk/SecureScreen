@@ -1,0 +1,19 @@
+#title
+SecureScreen(Screen pinning)
+
+#short description
+Full-pinning the screen of your smart phone
+
+#description
+"When you pass a smartphone to others, other parts can be seen and other concerns".
+SecureScreen eliminates such anxiety.
+With this application, you can block touching content on screen and moving to other apps.
+
+□ Usage
+· I want to show travel photos but when I do not want to show other photos in the image folder.
+· It is necessary to show a specific mail, but it is troublesome to see other mails.
+
+To further increase the effect
+Turn on the screen fixation from [Settings] application -> [security] -> [Screen pinning] and turn ON the [Require password (depending on the locking method used) before releasing the screen fix I will recommend it.
+You can still use the application even if [Fixed screen] is OFF, but further safety can be expected by the above setting.
+
