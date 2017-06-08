@@ -19,6 +19,7 @@ import android.app.ActivityManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 
 class SecureActivity : AppCompatActivity() {
@@ -46,6 +47,10 @@ class SecureActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        if (!PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("finish_on_back_pressed", false)) {
+            return
+        }
         if (isInLockTask()) {
             if (BuildConfig.DEBUG) {
                 DebugLogger.logger?.print(TAG, "Activity is in lock task mode. unlocking...")

@@ -41,6 +41,7 @@ class SettingsActivity : AppCompatActivity() {
     private val mVersionLabel by bindView<TextView>(R.id.version)
     private val mDeveloperLabel by bindView<View>(R.id.developer)
     private val mStartOnBootSwitch by bindView<Switch>(R.id.start_on_boot)
+    private val mFinishOnBackPressedSwitch by bindView<Switch>(R.id.finish_on_back_pressed)
     private val mOssLicenseLabel by bindView<View>(R.id.oss_license)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +49,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_settings)
 
         setupStartOnBootSwitch()
+        setupFinishOnBackPressedSwitch()
         setupAppInfo()
 
         startButton.setOnClickListener {
@@ -73,6 +75,15 @@ class SettingsActivity : AppCompatActivity() {
         mStartOnBootSwitch.isChecked = preferences.getBoolean("start_on_boot", false)
         mStartOnBootSwitch.setOnCheckedChangeListener { _, isChecked ->
             preferences.edit().putBoolean("start_on_boot", isChecked).apply()
+        }
+    }
+
+    private fun setupFinishOnBackPressedSwitch() {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        mFinishOnBackPressedSwitch.isChecked =
+                preferences.getBoolean("finish_on_back_pressed", false)
+        mFinishOnBackPressedSwitch.setOnCheckedChangeListener { _, isChecked ->
+            preferences.edit().putBoolean("finish_on_back_pressed", isChecked).apply()
         }
     }
 
