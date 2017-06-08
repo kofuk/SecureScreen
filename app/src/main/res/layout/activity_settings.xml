@@ -82,6 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="false"
+                    android:padding="5dp"
                     android:text="@string/start_on_boot"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
@@ -93,6 +94,7 @@
                     android:background="@android:color/darker_gray"/>
 
                 <Switch
+                    android:padding="5dp"
                     android:id="@+id/finish_on_back_pressed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -122,6 +124,7 @@
                     android:text="@string/info"/>
 
                 <TextView
+                    android:padding="5dp"
                     android:id="@+id/oss_license"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -138,6 +141,7 @@
                     android:background="@android:color/darker_gray"/>
 
                 <TextView
+                    android:padding="5dp"
                     android:id="@+id/join_develop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -157,13 +161,23 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingEnd="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
                     android:text="@string/version"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
                 <TextView
                     android:id="@+id/version"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:paddingEnd="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingStart="5dp"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -173,6 +187,7 @@
                     android:background="@android:color/darker_gray"/>
 
                 <TextView
+                    android:padding="5dp"
                     android:id="@+id/developer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
