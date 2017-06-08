@@ -20,7 +20,6 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 
 class SecureActivity : AppCompatActivity() {
     companion object {
@@ -49,7 +48,7 @@ class SecureActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (isInLockTask()) {
             if (BuildConfig.DEBUG) {
-                Log.d(TAG,"Activity is in lock task mode. unlocking...")
+                DebugLogger.logger?.print(TAG, "Activity is in lock task mode. unlocking...")
             }
             stopLockTask()
         }
@@ -59,9 +58,8 @@ class SecureActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         finishAndRemoveTask()
-        if (BuildConfig.DEBUG){
-            Log.d(TAG,"Secure Screen finished since onPause called")
-        }
+        DebugLogger.logger?.print(TAG,
+                "Finishing Secure Screen since activity is no longer displayed")
     }
 
     override fun finish() {
