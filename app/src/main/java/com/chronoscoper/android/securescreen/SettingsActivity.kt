@@ -39,12 +39,12 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private val startButton by bindView<View>(R.id.start)
-    private val mVersionLabel by bindView<TextView>(R.id.version)
-    private val mDeveloperLabel by bindView<View>(R.id.developer)
-    private val mStartOnBootSwitch by bindView<Switch>(R.id.start_on_boot)
-    private val mFinishOnBackPressedSwitch by bindView<Switch>(R.id.finish_on_back_pressed)
-    private val mJoinDevelopmentButton by bindView<View>(R.id.join_develop)
-    private val mOssLicenseLabel by bindView<View>(R.id.oss_license)
+    private val versionLabel by bindView<TextView>(R.id.version)
+    private val developerLabel by bindView<View>(R.id.developer)
+    private val startOnBootSwitch by bindView<Switch>(R.id.start_on_boot)
+    private val finishOnBackPressedSwitch by bindView<Switch>(R.id.finish_on_back_pressed)
+    private val joinDevelopmentButton by bindView<View>(R.id.join_develop)
+    private val ossLicenseLabel by bindView<View>(R.id.oss_license)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,38 +74,38 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun setupStartOnBootSwitch() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        mStartOnBootSwitch.isChecked = preferences.getBoolean("start_on_boot", false)
-        mStartOnBootSwitch.setOnCheckedChangeListener { _, isChecked ->
+        startOnBootSwitch.isChecked = preferences.getBoolean("start_on_boot", false)
+        startOnBootSwitch.setOnCheckedChangeListener { _, isChecked ->
             preferences.edit().putBoolean("start_on_boot", isChecked).apply()
         }
     }
 
     private fun setupFinishOnBackPressedSwitch() {
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        mFinishOnBackPressedSwitch.isChecked =
+        finishOnBackPressedSwitch.isChecked =
                 preferences.getBoolean("finish_on_back_pressed", false)
-        mFinishOnBackPressedSwitch.setOnCheckedChangeListener { _, isChecked ->
+        finishOnBackPressedSwitch.setOnCheckedChangeListener { _, isChecked ->
             preferences.edit().putBoolean("finish_on_back_pressed", isChecked).apply()
         }
     }
 
     private fun setupAppInfo() {
-        mJoinDevelopmentButton.setOnClickListener {
+        joinDevelopmentButton.setOnClickListener {
             try {
                 startActivity(Intent(Intent.ACTION_VIEW,
                         Uri.parse(GIT_HUB_ADDRESS)))
             } catch (ignore: ActivityNotFoundException) {
             }
         }
-        mVersionLabel.text = BuildConfig.VERSION_NAME
-        mDeveloperLabel.setOnClickListener {
+        versionLabel.text = BuildConfig.VERSION_NAME
+        developerLabel.setOnClickListener {
             try {
                 startActivity(Intent(Intent.ACTION_VIEW,
                         Uri.parse(DEVELOPER_WEB_ADDRESS)))
             } catch (ignore: ActivityNotFoundException) {
             }
         }
-        mOssLicenseLabel.setOnClickListener {
+        ossLicenseLabel.setOnClickListener {
             LicenseViewer.open(this, getString(R.string.oss_license), true)
         }
     }
