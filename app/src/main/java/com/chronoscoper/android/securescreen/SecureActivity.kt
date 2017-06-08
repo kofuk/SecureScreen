@@ -56,6 +56,14 @@ class SecureActivity : AppCompatActivity() {
         finishAndRemoveTask()
     }
 
+    override fun onPause() {
+        super.onPause()
+        finishAndRemoveTask()
+        if (BuildConfig.DEBUG){
+            Log.d(TAG,"Secure Screen finished since onPause called")
+        }
+    }
+
     override fun finish() {
         super.finish()
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
