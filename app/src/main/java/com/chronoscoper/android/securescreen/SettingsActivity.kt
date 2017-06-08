@@ -35,6 +35,7 @@ import kotterknife.bindView
 class SettingsActivity : AppCompatActivity() {
     companion object {
         private const val DEVELOPER_WEB_ADDRESS = "http://www.chronoscoper.com/"
+        private const val GIT_HUB_ADDRESS = "https://github.com/KoFuk/SecureScreen"
     }
 
     private val startButton by bindView<View>(R.id.start)
@@ -42,6 +43,7 @@ class SettingsActivity : AppCompatActivity() {
     private val mDeveloperLabel by bindView<View>(R.id.developer)
     private val mStartOnBootSwitch by bindView<Switch>(R.id.start_on_boot)
     private val mFinishOnBackPressedSwitch by bindView<Switch>(R.id.finish_on_back_pressed)
+    private val mJoinDevelopmentButton by bindView<View>(R.id.join_develop)
     private val mOssLicenseLabel by bindView<View>(R.id.oss_license)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,6 +90,13 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setupAppInfo() {
+        mJoinDevelopmentButton.setOnClickListener {
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW,
+                        Uri.parse(GIT_HUB_ADDRESS)))
+            } catch (ignore: ActivityNotFoundException) {
+            }
+        }
         mVersionLabel.text = BuildConfig.VERSION_NAME
         mDeveloperLabel.setOnClickListener {
             try {
