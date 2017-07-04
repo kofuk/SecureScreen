@@ -21,6 +21,9 @@ import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import android.widget.SeekBar
+import com.rm.freedrawview.FreeDrawView
 
 class SecureActivity : AppCompatActivity() {
     companion object {
@@ -30,12 +33,43 @@ class SecureActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        if (PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("enable_free_draw", false)) {
+            setContentView(R.layout.activity_secure)
+            initFreeDraw()
+        }
 
         if (savedInstanceState == null) {
             startLockTask()
         }
     }
 
+    private fun initFreeDraw() {
+        val freeDraw = findViewById(R.id.draw) as FreeDrawView
+        val painWidthSeekBar = findViewById(R.id.paint_width) as SeekBar
+        painWidthSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                freeDraw.setPaintWidthDp(progress.toFloat())
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
+
+        val doneButton = findViewById(R.id.done)
+        doneButton.setOnClickListener {
+            val menu = findViewById(R.id.menu)
+            menu.animate()
+                    .alpha(0f)
+                    .y(findViewById(android.R.id.content).height.toFloat())
+                    .withEndAction {
+                        menu.visibility = View.GONE
+                        freeDraw.isEnabled = false
+                    }
+                    .start()
+        }
+    }
 
     private fun isInLockTask(): Boolean {
         val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager

@@ -43,8 +43,11 @@ class SettingsActivity : AppCompatActivity() {
     private val developerLabel by bindView<View>(R.id.developer)
     private val startOnBootSwitch by bindView<Switch>(R.id.start_on_boot)
     private val finishOnBackPressedSwitch by bindView<Switch>(R.id.finish_on_back_pressed)
+    private val freeDrawSwitch by bindView<Switch>(R.id.enable_free_draw)
     private val joinDevelopmentButton by bindView<View>(R.id.join_develop)
     private val ossLicenseLabel by bindView<View>(R.id.oss_license)
+
+    private val preferences by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +55,7 @@ class SettingsActivity : AppCompatActivity() {
 
         setupStartOnBootSwitch()
         setupFinishOnBackPressedSwitch()
+        setupFreeDrawSwitch()
         setupAppInfo()
 
         startButton.setOnClickListener {
@@ -73,7 +77,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setupStartOnBootSwitch() {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         startOnBootSwitch.isChecked = preferences.getBoolean("start_on_boot", false)
         startOnBootSwitch.setOnCheckedChangeListener { _, isChecked ->
             preferences.edit().putBoolean("start_on_boot", isChecked).apply()
@@ -81,11 +84,17 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setupFinishOnBackPressedSwitch() {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
         finishOnBackPressedSwitch.isChecked =
                 preferences.getBoolean("finish_on_back_pressed", false)
         finishOnBackPressedSwitch.setOnCheckedChangeListener { _, isChecked ->
             preferences.edit().putBoolean("finish_on_back_pressed", isChecked).apply()
+        }
+    }
+
+    private fun setupFreeDrawSwitch() {
+        freeDrawSwitch.isChecked = preferences.getBoolean("enable_free_draw", false)
+        freeDrawSwitch.setOnCheckedChangeListener { _, isChecked ->
+            preferences.edit().putBoolean("enable_free_draw", isChecked).apply()
         }
     }
 
