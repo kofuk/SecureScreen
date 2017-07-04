@@ -7,10 +7,10 @@ your private information when you pass others your smart phone.
  e.g. your picture and contact
 
 ## Download
-This app is available on the [Google Play Store](https://play.google.com/store/apps/details?id=com.chronoscoper.android.securescreen)
+This app is available on [Google Play Store](https://play.google.com/store/apps/details?id=com.chronoscoper.android.securescreen)
 
 ## Contribute
-You can contribute this app via the GitHub pull request.  
+You can contribute this app via GitHub pull request.  
 I appreciate both large PR such as feature or design change and tiny PR such as fixing typo.
 
 ## License
