@@ -15,18 +15,15 @@
  */
 package com.chronoscoper.android.securescreen
 
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.preference.PreferenceManager
-import android.support.v4.app.NotificationCompat
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.Switch
 import android.widget.TextView
 import com.chronoscoper.library.licenseviewer.LicenseViewer
@@ -38,7 +35,7 @@ class SettingsActivity : AppCompatActivity() {
         private const val GIT_HUB_ADDRESS = "https://github.com/kofuk/SecureScreen"
     }
 
-    private val startButton by bindView<View>(R.id.start)
+    private val startButton by bindView<FrameLayout>(R.id.start)
     private val versionLabel by bindView<TextView>(R.id.version)
     private val developerLabel by bindView<View>(R.id.developer)
     private val startOnBootSwitch by bindView<Switch>(R.id.start_on_boot)
@@ -52,26 +49,50 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
+        // trick
+        prevActive = !SecureScreenNotification.isActive
+
         setupStartOnBootSwitch()
         setupFinishOnBackPressedSwitch()
         setupAppInfo()
+    }
 
-        startButton.setOnClickListener {
-            val notification = NotificationCompat.Builder(applicationContext, App.NC_DEFAULT)
-                    .setSmallIcon(R.drawable.ic_notification)
-                    .setContentTitle(getString(R.string.notification_title))
-                    .setContentText(getString(
-                            R.string.notification_message))
-                    .setPriority(NotificationCompat.PRIORITY_MAX)
-                    .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
-                    .setColor(ContextCompat.getColor(
-                            this, R.color.colorPrimary))
-            val pendingIntent = PendingIntent.getActivity(applicationContext, 1,
-                    Intent(applicationContext, SecureActivity::class.java), 0)
-            notification.setContentIntent(pendingIntent)
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.notify(1, notification.build())
-        }
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) initStartButton()
+    }
+
+    private var prevActive = false
+
+    private fun initStartButton() {
+        if (prevActive == SecureScreenNotification.isActive) return
+        if (SecureScreenNotification.isActive)
+            startButton.setOnClickListener {
+                SecureScreenNotification.delete(this)
+                initStartButton()
+            }
+        else
+            startButton.setOnClickListener {
+                SecureScreenNotification.showNotification(this)
+                initStartButton()
+            }
+        val label = startButton.findViewById<TextView>(R.id.start_label)
+        label.text = getString(
+                if (SecureScreenNotification.isActive)
+                    R.string.hide_notification
+                else
+                    R.string.show_notification
+        )
+        Handler().postDelayed({
+            startButton.foreground = getDrawable(
+                    if (SecureScreenNotification.isActive)
+                        R.drawable.card_button_deactivate
+                    else
+                        R.drawable.card_button
+            )
+        }, 400)
+
+        prevActive = SecureScreenNotification.isActive
     }
 
     private fun setupStartOnBootSwitch() {

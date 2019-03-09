@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-   Copyright 2017 KoFuk
+   Copyright 2017-2019 Koki Fukuda
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
@@ -12,9 +12,9 @@
    limitations under the License.
 -->
 <resources>
-    <color name="colorPrimary">#1d231c</color>
-    <color name="colorPrimaryDark">#070d03</color>
-    <color name="colorAccent">#af6a46</color>
+    <color name="colorPrimary">#539FF1</color>
+    <color name="colorPrimaryDark">#2D84EE</color>
+    <color name="colorAccent">#0033A3</color>
     <color name="secureScreenSystemUi">#393939</color>
     <color name="rippleDark">#37000000</color>
 </resources>

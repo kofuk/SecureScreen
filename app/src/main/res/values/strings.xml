@@ -1,5 +1,5 @@
 <!--
-   Copyright 2017 KoFuk
+   Copyright 2017-2019 Koki Fukuda
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
@@ -15,6 +15,7 @@
     <string name="notification_title">Start SecureScreen</string>
     <string name="notification_message">Lock current screen</string>
     <string name="show_notification">SHOW NOTIFICATION</string>
+    <string name="hide_notification">DON\'T SHOW NOTIFICATION</string>
     <string name="show_notification_message">Click notification to pin screen</string>
     <string name="start_on_boot">Start on boot completed</string>
     <string name="start_on_boot_true_summary">Show notification on boot completed</string>
@@ -37,4 +38,5 @@
     <string name="finish_on_back_pressed">Finish on back button pressed</string>
     <string name="join_develop">Join SecureScreen development</string>
     <string name="notification_channel_default">Default</string>
+    <string name="unlock_password_description">For password on unlocking:\n\"Settings\" app &gt; \"Security\" &gt; \"Screen pinning\" &gt; Turn on &gt; Turn on \"Ask for PIN before unlocking\"</string>
 </resources>

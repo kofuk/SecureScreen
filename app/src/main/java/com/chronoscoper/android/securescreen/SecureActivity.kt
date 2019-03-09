@@ -19,10 +19,10 @@ import android.app.ActivityManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.widget.SeekBar
 
 class SecureActivity : AppCompatActivity() {
     companion object {
@@ -39,17 +39,37 @@ class SecureActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             startLockTask()
+            //TODO: Detect if screen pinning is approved
+            val container = findViewById<View>(android.R.id.content)
+                    .apply {
+                        isClickable = true
+                        isFocusable = true
+                        isFocusableInTouchMode = true
+                    }
+            container.setOnClickListener { v ->
+                v.setOnClickListener(null)
+                Handler().let {
+                    it.post(object : Runnable {
+                        override fun run() {
+                            if (!isInLockTask()) {
+                                finish()
+                                return
+                            }
+                            it.postDelayed(this, 500)
+                        }
+                    })
+                }
+            }
         }
     }
 
     @Suppress("deprecation")
     private fun isInLockTask(): Boolean {
         val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
             activityManager.isInLockTaskMode
-        } else {
+        else
             activityManager.lockTaskModeState != ActivityManager.LOCK_TASK_MODE_NONE
-        }
     }
 
     override fun onBackPressed() {

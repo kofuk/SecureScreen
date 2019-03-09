@@ -1,5 +1,5 @@
 <!--
-   Copyright 2017 KoFuk
+   Copyright 2017-2019 Koki Fukuda
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
@@ -13,16 +13,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
-    </style>
-
-    <style name="AppTheme.Launcher" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/splash</item>
-        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/white</item>
     </style>
 
     <style name="AppTheme.Translucent" parent="AppTheme">

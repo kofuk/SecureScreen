@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <!--
-   Copyright 2017 KoFuk
+   Copyright 2017-2019 Koki Fukuda
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
    You may obtain a copy of the License at
@@ -11,11 +12,6 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/colorPrimary" />
-    <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@drawable/icon_splash" />
-    </item>
-</layer-list>
+
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@android:color/holo_red_light" />

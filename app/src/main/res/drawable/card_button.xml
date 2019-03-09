@@ -13,10 +13,5 @@
    limitations under the License.
 -->
 
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:clickable="true"
-    android:focusable="true"
-    android:id="@+id/base"
-    android:layout_height="match_parent" />
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/colorPrimary" />
