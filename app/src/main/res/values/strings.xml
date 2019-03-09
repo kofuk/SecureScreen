@@ -36,6 +36,5 @@
     <string name="oss_license">Open Source License</string>
     <string name="finish_on_back_pressed">Finish on back button pressed</string>
     <string name="join_develop">Join SecureScreen development</string>
-    <string name="enable_free_drawing">Enable free drawing to hide private information(Beta)</string>
-    <string name="menu">MENU</string>
+    <string name="notification_channel_default">Default</string>
 </resources>

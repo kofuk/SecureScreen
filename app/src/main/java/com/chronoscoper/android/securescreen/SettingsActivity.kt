@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 KoFuk
+ * Copyright 2017-2019 Koki Fukuda
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import kotterknife.bindView
 class SettingsActivity : AppCompatActivity() {
     companion object {
         private const val DEVELOPER_WEB_ADDRESS = "http://www.chronoscoper.com/"
-        private const val GIT_HUB_ADDRESS = "https://github.com/KoFuk/SecureScreen"
+        private const val GIT_HUB_ADDRESS = "https://github.com/kofuk/SecureScreen"
     }
 
     private val startButton by bindView<View>(R.id.start)
@@ -57,7 +57,7 @@ class SettingsActivity : AppCompatActivity() {
         setupAppInfo()
 
         startButton.setOnClickListener {
-            val notification = NotificationCompat.Builder(applicationContext)
+            val notification = NotificationCompat.Builder(applicationContext, App.NC_DEFAULT)
                     .setSmallIcon(R.drawable.ic_notification)
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(getString(

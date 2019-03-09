@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 KoFuk
+ * Copyright 2017-2019 Koki Fukuda
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,25 +25,26 @@ import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 
 class BootReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context, intent: Intent) {
-        if (!PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean("start_on_boot", false)) {
-            return
-        }
-        val notification = NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(context.getString(R.string.notification_title))
-                .setContentText(context.getString(
-                        R.string.notification_message))
-                .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
-                .setColor(ContextCompat.getColor(
-                        context, R.color.colorPrimary))
-
-        val pendingIntent = PendingIntent.getActivity(context, 1,
-                Intent(context, SecureActivity::class.java), 0)
-        notification.setContentIntent(pendingIntent)
-        val notificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(1, notification.build())
-    }
+    override fun onReceive(context: Context, intent: Intent) =
+            if (intent.action == Intent.ACTION_BOOT_COMPLETED
+                    && PreferenceManager.getDefaultSharedPreferences(context)
+                            .getBoolean("start_on_boot", false))
+                (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
+                        .notify(
+                                1,
+                                NotificationCompat.Builder(context, App.NC_DEFAULT)
+                                        .setSmallIcon(R.drawable.ic_notification)
+                                        .setContentTitle(context.getString(R.string.notification_title))
+                                        .setContentText(context.getString(
+                                                R.string.notification_message))
+                                        .setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+                                        .setColor(ContextCompat.getColor(
+                                                context, R.color.colorPrimary))
+                                        .apply {
+                                            setContentIntent(PendingIntent.getActivity(context, 1,
+                                                    Intent(context, SecureActivity::class.java), 0))
+                                        }
+                                        .build()
+                        )
+            else Unit
 }

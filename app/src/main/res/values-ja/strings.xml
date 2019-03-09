@@ -36,6 +36,5 @@
     <string name="oss_license">オープンソースライセンス</string>
     <string name="finish_on_back_pressed">[戻る]ボタンを押してSecureScreenを終了</string>
     <string name="join_develop">SecureScreenの開発に参加</string>
-    <string name="enable_free_drawing">個人情報を隠すためにフリードローを利用する(ベータ版)</string>
-    <string name="menu">メニュー</string>
+    <string name="notification_channel_default">デフォルト</string>
 </resources>
