@@ -23,7 +23,6 @@ import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.SeekBar
-import com.rm.freedrawview.FreeDrawView
 
 class SecureActivity : AppCompatActivity() {
     companion object {
@@ -36,38 +35,10 @@ class SecureActivity : AppCompatActivity() {
         if (PreferenceManager.getDefaultSharedPreferences(this)
                         .getBoolean("enable_free_draw", false)) {
             setContentView(R.layout.activity_secure)
-            initFreeDraw()
         }
 
         if (savedInstanceState == null) {
             startLockTask()
-        }
-    }
-
-    private fun initFreeDraw() {
-        val freeDraw = findViewById<FreeDrawView>(R.id.draw)
-        val painWidthSeekBar = findViewById<SeekBar>(R.id.paint_width)
-        painWidthSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                freeDraw.setPaintWidthDp(progress.toFloat())
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-        })
-
-        val doneButton = findViewById<View>(R.id.done)
-        doneButton.setOnClickListener {
-            val menu = findViewById<View>(R.id.menu)
-            menu.animate()
-                    .alpha(0f)
-                    .y(findViewById<View>(android.R.id.content).height.toFloat())
-                    .withEndAction {
-                        menu.visibility = View.GONE
-                        freeDraw.isEnabled = false
-                    }
-                    .start()
         }
     }
 
