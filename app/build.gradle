@@ -8,15 +8,30 @@ android {
         applicationId "com.chronoscoper.android.securescreen"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 14
-        versionName "1.4"
+        versionCode 15
+        versionName "1.5"
+        resConfig 'ja'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    packagingOptions {
+        exclude 'kotlin/**'
+        exclude 'META-INF/*.kotlin_module'
+        exclude 'META-INF/*.version'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        //TODO: Work-around for kotterknife
+        checkReleaseBuilds false
     }
 }
 
