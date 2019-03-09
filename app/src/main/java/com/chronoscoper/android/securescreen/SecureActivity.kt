@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 KoFuk
+ * Copyright 2017-2019 Koki Fukuda
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ class SecureActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         if (PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean("enable_free_draw", false)) {
+                        .getBoolean("enable_free_draw", false)) {
             setContentView(R.layout.activity_secure)
             initFreeDraw()
         }
@@ -45,8 +45,8 @@ class SecureActivity : AppCompatActivity() {
     }
 
     private fun initFreeDraw() {
-        val freeDraw = findViewById(R.id.draw) as FreeDrawView
-        val painWidthSeekBar = findViewById(R.id.paint_width) as SeekBar
+        val freeDraw = findViewById<FreeDrawView>(R.id.draw)
+        val painWidthSeekBar = findViewById<SeekBar>(R.id.paint_width)
         painWidthSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 freeDraw.setPaintWidthDp(progress.toFloat())
@@ -57,12 +57,12 @@ class SecureActivity : AppCompatActivity() {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
 
-        val doneButton = findViewById(R.id.done)
+        val doneButton = findViewById<View>(R.id.done)
         doneButton.setOnClickListener {
-            val menu = findViewById(R.id.menu)
+            val menu = findViewById<View>(R.id.menu)
             menu.animate()
                     .alpha(0f)
-                    .y(findViewById(android.R.id.content).height.toFloat())
+                    .y(findViewById<View>(android.R.id.content).height.toFloat())
                     .withEndAction {
                         menu.visibility = View.GONE
                         freeDraw.isEnabled = false
@@ -71,18 +71,19 @@ class SecureActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("deprecation")
     private fun isInLockTask(): Boolean {
         val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return activityManager.isInLockTaskMode
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            activityManager.isInLockTaskMode
         } else {
-            return activityManager.lockTaskModeState != ActivityManager.LOCK_TASK_MODE_NONE
+            activityManager.lockTaskModeState != ActivityManager.LOCK_TASK_MODE_NONE
         }
     }
 
     override fun onBackPressed() {
         if (!PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean("finish_on_back_pressed", false)) {
+                        .getBoolean("finish_on_back_pressed", false)) {
             return
         }
         if (isInLockTask()) {
