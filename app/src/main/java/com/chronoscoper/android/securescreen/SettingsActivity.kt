@@ -31,7 +31,7 @@ import kotterknife.bindView
 
 class SettingsActivity : AppCompatActivity() {
     companion object {
-        private const val DEVELOPER_WEB_ADDRESS = "http://www.chronoscoper.com/"
+        private const val DEVELOPER_WEB_ADDRESS = "https://www.chronoscoper.com/"
         private const val GIT_HUB_ADDRESS = "https://github.com/kofuk/SecureScreen"
     }
 
