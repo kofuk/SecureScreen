@@ -32,13 +32,19 @@ class SecureActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        if (PreferenceManager.getDefaultSharedPreferences(this)
-                        .getBoolean("enable_free_draw", false)) {
-            setContentView(R.layout.activity_secure)
-        }
+        setContentView(R.layout.activity_secure)
 
         if (savedInstanceState == null) {
             startLockTask()
+            if (PreferenceManager.getDefaultSharedPreferences(this)
+                            .getBoolean("finish_button", true))
+                findViewById<View>(R.id.finish)
+                        .setOnClickListener {
+                            stopLockTask()
+                            finishAndRemoveTask()
+                        }
+            else
+                findViewById<View>(R.id.finish).visibility = View.GONE
             //TODO: Detect if screen pinning is approved
             val container = findViewById<View>(android.R.id.content)
                     .apply {
@@ -52,7 +58,7 @@ class SecureActivity : AppCompatActivity() {
                     it.post(object : Runnable {
                         override fun run() {
                             if (!isInLockTask()) {
-                                finish()
+                                finishAndRemoveTask()
                                 return
                             }
                             it.postDelayed(this, 500)

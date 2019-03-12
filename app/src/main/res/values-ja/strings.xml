@@ -39,4 +39,6 @@
     <string name="join_develop">SecureScreenの開発に参加</string>
     <string name="notification_channel_default">デフォルト</string>
     <string name="unlock_password_description">アンロック時にパスワードを要求するためには:\n「設定」アプリ &gt; 「セキュリティ」 &gt; 「画面の固定」 &gt; ON に変更 &gt; 「画面固定の解除前にPINを要求」を ON</string>
+    <string name="finish">終了</string>
+    <string name="enable_finish_button">終了ボタンを固定中の画面に表示する</string>
 </resources>

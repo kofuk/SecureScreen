@@ -39,4 +39,6 @@
     <string name="join_develop">Join SecureScreen development</string>
     <string name="notification_channel_default">Default</string>
     <string name="unlock_password_description">For password on unlocking:\n\"Settings\" app &gt; \"Security\" &gt; \"Screen pinning\" &gt; Turn on &gt; Turn on \"Ask for PIN before unlocking\"</string>
+    <string name="finish">FINISH</string>
+    <string name="enable_finish_button">Show finish button in pinned screen</string>
 </resources>

@@ -40,6 +40,7 @@ class SettingsActivity : AppCompatActivity() {
     private val developerLabel by bindView<View>(R.id.developer)
     private val startOnBootSwitch by bindView<Switch>(R.id.start_on_boot)
     private val finishOnBackPressedSwitch by bindView<Switch>(R.id.finish_on_back_pressed)
+    private val finishButtonSwitch by bindView<Switch>(R.id.finish_button)
     private val joinDevelopmentButton by bindView<View>(R.id.join_develop)
     private val ossLicenseLabel by bindView<View>(R.id.oss_license)
 
@@ -54,6 +55,7 @@ class SettingsActivity : AppCompatActivity() {
 
         setupStartOnBootSwitch()
         setupFinishOnBackPressedSwitch()
+        setupFinishButtonSwitch()
         setupAppInfo()
     }
 
@@ -95,20 +97,30 @@ class SettingsActivity : AppCompatActivity() {
         prevActive = SecureScreenNotification.isActive
     }
 
-    private fun setupStartOnBootSwitch() {
-        startOnBootSwitch.isChecked = preferences.getBoolean("start_on_boot", false)
-        startOnBootSwitch.setOnCheckedChangeListener { _, isChecked ->
-            preferences.edit().putBoolean("start_on_boot", isChecked).apply()
-        }
-    }
+    private fun setupStartOnBootSwitch() =
+            startOnBootSwitch.apply {
+                isChecked = preferences.getBoolean("start_on_boot", false)
+                setOnCheckedChangeListener { _, isChecked ->
+                    preferences.edit().putBoolean("start_on_boot", isChecked).apply()
+                }
+            }
 
-    private fun setupFinishOnBackPressedSwitch() {
-        finishOnBackPressedSwitch.isChecked =
-                preferences.getBoolean("finish_on_back_pressed", false)
-        finishOnBackPressedSwitch.setOnCheckedChangeListener { _, isChecked ->
-            preferences.edit().putBoolean("finish_on_back_pressed", isChecked).apply()
-        }
-    }
+    private fun setupFinishOnBackPressedSwitch() =
+            finishOnBackPressedSwitch.apply {
+                isChecked =
+                        preferences.getBoolean("finish_on_back_pressed", false)
+                setOnCheckedChangeListener { _, isChecked ->
+                    preferences.edit().putBoolean("finish_on_back_pressed", isChecked).apply()
+                }
+            }
+
+    private fun setupFinishButtonSwitch() =
+            finishButtonSwitch.apply {
+                isChecked = preferences.getBoolean("finish_button", true)
+                setOnCheckedChangeListener { _, isChecked ->
+                    preferences.edit().putBoolean("finish_button", isChecked).apply()
+                }
+            }
 
     private fun setupAppInfo() {
         joinDevelopmentButton.setOnClickListener {

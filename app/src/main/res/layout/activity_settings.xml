@@ -136,6 +136,22 @@
                         android:text="@string/finish_on_back_pressed"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <Switch
+                        android:id="@+id/finish_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:padding="5dp"
+                        android:text="@string/enable_finish_button"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -165,6 +181,7 @@
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
+                        android:focusable="true"
                         android:padding="5dp"
                         android:text="@string/oss_license"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -182,6 +199,7 @@
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
+                        android:focusable="true"
                         android:padding="5dp"
                         android:text="@string/join_develop"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -228,6 +246,7 @@
                         android:layout_height="wrap_content"
                         android:background="?selectableItemBackground"
                         android:clickable="true"
+                        android:focusable="true"
                         android:padding="5dp"
                         android:text="@string/developer"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
