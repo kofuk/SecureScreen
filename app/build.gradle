@@ -8,8 +8,8 @@ android {
         applicationId "com.chronoscoper.android.securescreen"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 15
-        versionName "1.5"
+        versionCode 16
+        versionName "1.6"
         resConfig 'ja'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
