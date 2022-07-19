@@ -17,4 +17,8 @@
     <color name="colorAccent">#0033A3</color>
     <color name="secureScreenSystemUi">#393939</color>
     <color name="rippleDark">#37000000</color>
+    <color name="appStatusBar">@android:color/white</color>
+    <color name="brightText">@android:color/black</color>
+
+    <bool name="isLightStatusBar">true</bool>
 </resources>
