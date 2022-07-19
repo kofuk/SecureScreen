@@ -20,38 +20,43 @@ import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.preference.PreferenceManager
-import androidx.appcompat.app.AppCompatActivity
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
+import com.chronoscoper.android.securescreen.databinding.ActivitySecureBinding
 
 class SecureActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "SecureActivity"
     }
 
+    private lateinit var binding: ActivitySecureBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding = ActivitySecureBinding.inflate(layoutInflater)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-        setContentView(R.layout.activity_secure)
+        setContentView(binding.root)
 
         if (savedInstanceState == null) {
             startLockTask()
             if (PreferenceManager.getDefaultSharedPreferences(this)
-                            .getBoolean("finish_button", true))
+                    .getBoolean("finish_button", true)
+            )
                 findViewById<View>(R.id.finish)
-                        .setOnClickListener {
-                            stopLockTask()
-                            finishAndRemoveTask()
-                        }
+                    .setOnClickListener {
+                        stopLockTask()
+                        finishAndRemoveTask()
+                    }
             else
-                findViewById<View>(R.id.finish).visibility = View.GONE
+                binding.finish.visibility = View.GONE
             //TODO: Detect if screen pinning is approved
             val container = findViewById<View>(android.R.id.content)
-                    .apply {
-                        isClickable = true
-                        isFocusable = true
-                        isFocusableInTouchMode = true
-                    }
+                .apply {
+                    isClickable = true
+                    isFocusable = true
+                    isFocusableInTouchMode = true
+                }
             container.setOnClickListener { v ->
                 v.setOnClickListener(null)
                 Handler().let {
@@ -80,7 +85,8 @@ class SecureActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (!PreferenceManager.getDefaultSharedPreferences(this)
-                        .getBoolean("finish_on_back_pressed", false)) {
+                .getBoolean("finish_on_back_pressed", false)
+        ) {
             return
         }
         if (isInLockTask()) {
@@ -95,8 +101,10 @@ class SecureActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         finishAndRemoveTask()
-        DebugLogger.logger?.print(TAG,
-                "Finishing Secure Screen since activity is no longer displayed")
+        DebugLogger.logger?.print(
+            TAG,
+            "Finishing Secure Screen since activity is no longer displayed"
+        )
     }
 
     override fun finish() {

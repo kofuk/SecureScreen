@@ -20,35 +20,27 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.preference.PreferenceManager
-import androidx.appcompat.app.AppCompatActivity
-import android.view.View
-import android.widget.FrameLayout
-import android.widget.Switch
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.preference.PreferenceManager
+import com.chronoscoper.android.securescreen.databinding.ActivitySettingsBinding
 import com.chronoscoper.library.licenseviewer.LicenseViewer
-import kotterknife.bindView
 
 class SettingsActivity : AppCompatActivity() {
     companion object {
         private const val DEVELOPER_WEB_ADDRESS = "https://www.chronoscoper.com/"
-        private const val GIT_HUB_ADDRESS = "https://github.com/kofuk/SecureScreen"
+        private const val GITHUB_REPO_URL = "https://github.com/kofuk/SecureScreen"
     }
-
-    private val startButton by bindView<FrameLayout>(R.id.start)
-    private val versionLabel by bindView<TextView>(R.id.version)
-    private val developerLabel by bindView<View>(R.id.developer)
-    private val startOnBootSwitch by bindView<Switch>(R.id.start_on_boot)
-    private val finishOnBackPressedSwitch by bindView<Switch>(R.id.finish_on_back_pressed)
-    private val finishButtonSwitch by bindView<Switch>(R.id.finish_button)
-    private val joinDevelopmentButton by bindView<View>(R.id.join_develop)
-    private val ossLicenseLabel by bindView<View>(R.id.oss_license)
 
     private val preferences by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
 
+    private lateinit var binding: ActivitySettingsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // trick
         prevActive = !SecureScreenNotification.isActive
@@ -69,28 +61,29 @@ class SettingsActivity : AppCompatActivity() {
     private fun initStartButton() {
         if (prevActive == SecureScreenNotification.isActive) return
         if (SecureScreenNotification.isActive)
-            startButton.setOnClickListener {
+            binding.start.setOnClickListener {
                 SecureScreenNotification.delete(this)
                 initStartButton()
             }
         else
-            startButton.setOnClickListener {
+            binding.start.setOnClickListener {
                 SecureScreenNotification.showNotification(this)
                 initStartButton()
             }
-        val label = startButton.findViewById<TextView>(R.id.start_label)
+        val label = binding.start.findViewById<TextView>(R.id.start_label)
         label.text = getString(
-                if (SecureScreenNotification.isActive)
-                    R.string.hide_notification
-                else
-                    R.string.show_notification
+            if (SecureScreenNotification.isActive)
+                R.string.hide_notification
+            else
+                R.string.show_notification
         )
         Handler().postDelayed({
-            startButton.foreground = getDrawable(
-                    if (SecureScreenNotification.isActive)
-                        R.drawable.card_button_deactivate
-                    else
-                        R.drawable.card_button
+            binding.start.foreground = AppCompatResources.getDrawable(
+                this,
+                if (SecureScreenNotification.isActive)
+                    R.drawable.card_button_deactivate
+                else
+                    R.drawable.card_button
             )
         }, 400)
 
@@ -98,47 +91,55 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setupStartOnBootSwitch() =
-            startOnBootSwitch.apply {
-                isChecked = preferences.getBoolean("start_on_boot", false)
-                setOnCheckedChangeListener { _, isChecked ->
-                    preferences.edit().putBoolean("start_on_boot", isChecked).apply()
-                }
+        binding.startOnBoot.apply {
+            isChecked = preferences.getBoolean("start_on_boot", false)
+            setOnCheckedChangeListener { _, isChecked ->
+                preferences.edit().putBoolean("start_on_boot", isChecked).apply()
             }
+        }
 
     private fun setupFinishOnBackPressedSwitch() =
-            finishOnBackPressedSwitch.apply {
-                isChecked =
-                        preferences.getBoolean("finish_on_back_pressed", false)
-                setOnCheckedChangeListener { _, isChecked ->
-                    preferences.edit().putBoolean("finish_on_back_pressed", isChecked).apply()
-                }
+        binding.finishOnBackPressed.apply {
+            isChecked =
+                preferences.getBoolean("finish_on_back_pressed", false)
+            setOnCheckedChangeListener { _, isChecked ->
+                preferences.edit().putBoolean("finish_on_back_pressed", isChecked).apply()
             }
+        }
 
     private fun setupFinishButtonSwitch() =
-            finishButtonSwitch.apply {
-                isChecked = preferences.getBoolean("finish_button", true)
-                setOnCheckedChangeListener { _, isChecked ->
-                    preferences.edit().putBoolean("finish_button", isChecked).apply()
-                }
+        binding.finishButton.apply {
+            isChecked = preferences.getBoolean("finish_button", true)
+            setOnCheckedChangeListener { _, isChecked ->
+                preferences.edit().putBoolean("finish_button", isChecked).apply()
             }
+        }
 
     private fun setupAppInfo() {
-        joinDevelopmentButton.setOnClickListener {
+        binding.joinDevelop.setOnClickListener {
             try {
-                startActivity(Intent(Intent.ACTION_VIEW,
-                        Uri.parse(GIT_HUB_ADDRESS)))
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(GITHUB_REPO_URL)
+                    )
+                )
             } catch (ignore: ActivityNotFoundException) {
             }
         }
-        versionLabel.text = BuildConfig.VERSION_NAME
-        developerLabel.setOnClickListener {
+        binding.version.text = BuildConfig.VERSION_NAME
+        binding.developer.setOnClickListener {
             try {
-                startActivity(Intent(Intent.ACTION_VIEW,
-                        Uri.parse(DEVELOPER_WEB_ADDRESS)))
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(DEVELOPER_WEB_ADDRESS)
+                    )
+                )
             } catch (ignore: ActivityNotFoundException) {
             }
         }
-        ossLicenseLabel.setOnClickListener {
+        binding.ossLicense.setOnClickListener {
             LicenseViewer.open(this, getString(R.string.oss_license), true)
         }
     }
