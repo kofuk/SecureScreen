@@ -3,14 +3,13 @@ apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion "28.0.3"
     defaultConfig {
         applicationId "com.chronoscoper.android.securescreen"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 16
         versionName "1.6"
-        resConfig 'ja'
+        resConfigs 'ja'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -21,16 +20,18 @@ android {
         }
     }
     packagingOptions {
-        exclude 'kotlin/**'
-        exclude 'META-INF/*.kotlin_module'
-        exclude 'META-INF/*.version'
+        jniLibs {
+            excludes += ['kotlin/**']
+        }
+        resources {
+            excludes += ['kotlin/**', 'META-INF/*.kotlin_module', 'META-INF/*.version']
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    lintOptions {
-        //TODO: Work-around for kotterknife
+    lint {
         checkReleaseBuilds false
     }
 }
