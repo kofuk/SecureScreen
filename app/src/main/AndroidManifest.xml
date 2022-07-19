@@ -27,7 +27,8 @@
         android:theme="@style/AppTheme">
         <activity-alias
             android:name=".LauncherActivity"
-            android:targetActivity=".SettingsActivity">
+            android:targetActivity=".SettingsActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,7 +42,9 @@
             android:taskAffinity="com.chronoscoper.android.securescreen.screen"
             android:theme="@style/AppTheme.Translucent" />
 
-        <receiver android:name=".BootReceiver">
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
