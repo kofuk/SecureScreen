@@ -20,6 +20,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
@@ -60,16 +61,17 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun initStartButton() {
         if (prevActive == SecureScreenNotification.isActive) return
-        if (SecureScreenNotification.isActive)
+        if (SecureScreenNotification.isActive) {
             binding.start.setOnClickListener {
                 SecureScreenNotification.delete(this)
                 initStartButton()
             }
-        else
+        } else {
             binding.start.setOnClickListener {
                 SecureScreenNotification.showNotification(this)
                 initStartButton()
             }
+        }
         val label = binding.start.findViewById<TextView>(R.id.start_label)
         label.text = getString(
             if (SecureScreenNotification.isActive)
@@ -77,7 +79,7 @@ class SettingsActivity : AppCompatActivity() {
             else
                 R.string.show_notification
         )
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             binding.start.foreground = AppCompatResources.getDrawable(
                 this,
                 if (SecureScreenNotification.isActive)

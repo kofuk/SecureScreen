@@ -54,7 +54,7 @@
                 android:foreground="@drawable/card_button"
                 android:padding="10dp"
                 android:stateListAnimator="@animator/card_elevation_animator"
-                app:cardBackgroundColor="?android:colorBackground"
+                app:cardBackgroundColor="@color/cardButtonColor"
                 app:cardCornerRadius="40dp">
 
                 <LinearLayout
@@ -182,15 +182,18 @@
                         android:background="?selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
-                        android:padding="5dp"
+                        android:paddingStart="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="10dp"
                         android:text="@string/oss_license"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
                         android:background="@android:color/darker_gray" />
 
                     <TextView
@@ -200,15 +203,18 @@
                         android:background="?selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
-                        android:padding="5dp"
+                        android:paddingStart="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="10dp"
                         android:text="@string/join_develop"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
                         android:background="@android:color/darker_gray" />
 
 
@@ -217,7 +223,7 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="5dp"
                         android:paddingLeft="5dp"
-                        android:paddingTop="5dp"
+                        android:paddingTop="10dp"
                         android:paddingEnd="5dp"
                         android:paddingRight="5dp"
                         android:text="@string/version"
@@ -231,13 +237,11 @@
                         android:paddingLeft="5dp"
                         android:paddingEnd="5dp"
                         android:paddingRight="5dp"
-                        android:paddingBottom="5dp" />
+                        android:paddingBottom="10dp" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
                         android:background="@android:color/darker_gray" />
 
                     <TextView
@@ -247,7 +251,12 @@
                         android:background="?selectableItemBackground"
                         android:clickable="true"
                         android:focusable="true"
-                        android:padding="5dp"
+                        android:paddingStart="5dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="5dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="10dp"
                         android:text="@string/developer"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
                 </LinearLayout>

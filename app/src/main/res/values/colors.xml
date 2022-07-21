@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
    Copyright 2017-2022 Koki Fukuda
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -19,6 +18,7 @@
     <color name="rippleDark">#37000000</color>
     <color name="appStatusBar">@android:color/white</color>
     <color name="brightText">@android:color/black</color>
+    <color name="cardButtonColor">@color/cardview_light_background</color>
 
     <bool name="isLightStatusBar">true</bool>
 </resources>
