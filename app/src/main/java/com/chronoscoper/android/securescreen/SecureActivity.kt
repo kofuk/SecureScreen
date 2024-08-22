@@ -15,10 +15,13 @@
  */
 package com.chronoscoper.android.securescreen
 
+import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -35,7 +38,20 @@ class SecureActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySecureBinding.inflate(layoutInflater)
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        } else {
+            overrideActivityTransition(
+                Activity.OVERRIDE_TRANSITION_OPEN,
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            )
+            overrideActivityTransition(
+                Activity.OVERRIDE_TRANSITION_CLOSE,
+                android.R.anim.fade_in,
+                android.R.anim.fade_out
+            )
+        }
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
@@ -59,7 +75,7 @@ class SecureActivity : AppCompatActivity() {
                 }
             container.setOnClickListener { v ->
                 v.setOnClickListener(null)
-                Handler().let {
+                Handler(Looper.getMainLooper()).let {
                     it.post(object : Runnable {
                         override fun run() {
                             if (!isInLockTask()) {
@@ -110,6 +126,8 @@ class SecureActivity : AppCompatActivity() {
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
     }
 }
