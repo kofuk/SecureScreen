@@ -41,9 +41,9 @@ android {
     lint {
         checkReleaseBuilds false
     }
-
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
     }
 }
 
