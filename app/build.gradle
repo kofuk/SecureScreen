@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 33
+    compileSdk = 34
     defaultConfig {
         applicationId "com.chronoscoper.android.securescreen"
-        minSdkVersion 21
-        targetSdkVersion 33
+        minSdk 23
+        targetSdk 34
         versionCode 16
         versionName "1.6"
-        resConfigs 'ja'
+        resourceConfigurations += ['ja']
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
@@ -31,6 +31,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
     lint {
         checkReleaseBuilds false
     }
@@ -38,19 +41,20 @@ android {
     viewBinding {
         enabled = true
     }
+    namespace 'com.chronoscoper.android.securescreen'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
-        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'androidx.annotation', module: 'annotations'
     })
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    testImplementation 'junit:junit:4.12'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    testImplementation 'junit:junit:4.13.2'
+    implementation 'com.google.android.material:material:1.12.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.preference:preference:1.2.0'
-    implementation 'com.chronoscoper.library:license-viewer:1.4'
+    implementation 'androidx.preference:preference-ktx:1.2.1'
+    implementation 'com.github.kofuk:LicenseViewer:1.6.5'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {

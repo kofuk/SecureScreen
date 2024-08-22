@@ -17,10 +17,10 @@ package com.chronoscoper.android.securescreen
 
 import android.app.ActivityManager
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import com.chronoscoper.android.securescreen.databinding.ActivitySecureBinding
@@ -72,30 +72,31 @@ class SecureActivity : AppCompatActivity() {
                 }
             }
         }
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (!PreferenceManager.getDefaultSharedPreferences(this@SecureActivity)
+                        .getBoolean("finish_on_back_pressed", false)
+                ) {
+                    return
+                }
+                if (isInLockTask()) {
+                    if (BuildConfig.DEBUG) {
+                        DebugLogger.logger?.print(
+                            TAG,
+                            "Activity is in lock task mode. unlocking..."
+                        )
+                    }
+                    stopLockTask()
+                }
+                finishAndRemoveTask()
+            }
+        })
     }
 
-    @Suppress("deprecation")
     private fun isInLockTask(): Boolean {
         val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            activityManager.isInLockTaskMode
-        else
-            activityManager.lockTaskModeState != ActivityManager.LOCK_TASK_MODE_NONE
-    }
-
-    override fun onBackPressed() {
-        if (!PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean("finish_on_back_pressed", false)
-        ) {
-            return
-        }
-        if (isInLockTask()) {
-            if (BuildConfig.DEBUG) {
-                DebugLogger.logger?.print(TAG, "Activity is in lock task mode. unlocking...")
-            }
-            stopLockTask()
-        }
-        finishAndRemoveTask()
+        return activityManager.lockTaskModeState != ActivityManager.LOCK_TASK_MODE_NONE
     }
 
     override fun onPause() {
