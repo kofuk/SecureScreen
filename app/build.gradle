@@ -11,8 +11,8 @@ android {
         applicationId "com.chronoscoper.android.securescreen"
         minSdk 23
         targetSdk 34
-        versionCode 16
-        versionName "1.6"
+        versionCode 17
+        versionName "1.7"
         resourceConfigurations += ['ja']
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
