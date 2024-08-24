@@ -41,4 +41,5 @@
     <string name="unlock_password_description">アンロック時にパスワードを要求するためには:\n「設定」アプリ &gt; 「セキュリティ」 &gt; 「画面の固定」 &gt; ON に変更 &gt; 「画面固定の解除前にPINを要求」を ON</string>
     <string name="finish">終了</string>
     <string name="enable_finish_button">終了ボタンを固定中の画面に表示する</string>
+    <string name="permission_request">SecureScreen は通知に画面固定のショートカットを表示するために、通知の許可を必要とします。OK をタップして通知を許可してください。</string>
 </resources>

@@ -41,4 +41,5 @@
     <string name="unlock_password_description">For password on unlocking:\n\"Settings\" app &gt; \"Security\" &gt; \"Screen pinning\" &gt; Turn on &gt; Turn on \"Ask for PIN before unlocking\"</string>
     <string name="finish">FINISH</string>
     <string name="enable_finish_button">Show finish button in pinned screen</string>
+    <string name="permission_request">SecureScreen requires notification permission in order to display the screen-fixing shortcut in Notifications. Tap OK to allow notifications.</string>
 </resources>
