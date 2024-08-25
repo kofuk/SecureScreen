@@ -29,15 +29,18 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
-                    .createNotificationChannel(
-                            NotificationChannel(NC_DEFAULT,
-                                    getString(R.string.notification_channel_default),
-                                    NotificationManager.IMPORTANCE_DEFAULT)
-                                    .apply {
-                                        lockscreenVisibility = Notification.VISIBILITY_PRIVATE
-                                    }
+                .createNotificationChannel(
+                    NotificationChannel(
+                        NC_DEFAULT,
+                        getString(R.string.notification_channel_default),
+                        NotificationManager.IMPORTANCE_DEFAULT
                     )
+                        .apply {
+                            lockscreenVisibility = Notification.VISIBILITY_PRIVATE
+                        }
+                )
+        }
     }
 }

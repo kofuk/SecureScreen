@@ -31,6 +31,20 @@ class SecureScreenNotification {
         var isActive = false
 
         fun showNotification(context: Context) {
+            val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                PendingIntent.FLAG_IMMUTABLE
+            } else {
+                0
+            }
+            val contentIntent = PendingIntent.getActivity(
+                context, 1,
+                Intent(context, SecureActivity::class.java), flags
+            )
+            val deleteIntent = PendingIntent.getBroadcast(
+                context, 1,
+                Intent(context, DeleteReceiver::class.java), flags
+            )
+
             (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
                 .notify(
                     ++id,
@@ -48,25 +62,9 @@ class SecureScreenNotification {
                                 context, R.color.colorPrimary
                             )
                         )
-                        .apply {
-                            val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                                PendingIntent.FLAG_IMMUTABLE
-                            } else {
-                                0
-                            }
-                            setContentIntent(
-                                PendingIntent.getActivity(
-                                    context, 1,
-                                    Intent(context, SecureActivity::class.java), flags
-                                )
-                            )
-                            setDeleteIntent(
-                                PendingIntent.getBroadcast(
-                                    context, 1,
-                                    Intent(context, DeleteReceiver::class.java), flags
-                                )
-                            )
-                        }
+                        .setSilent(true)
+                        .setContentIntent(contentIntent)
+                        .setDeleteIntent(deleteIntent)
                         .build()
                 )
             isActive = true
@@ -81,7 +79,7 @@ class SecureScreenNotification {
 
     class DeleteReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            SecureScreenNotification.isActive = false
+            isActive = false
         }
 
     }
