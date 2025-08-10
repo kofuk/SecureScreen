@@ -6,7 +6,7 @@ plugins {
 android {
     namespace 'com.chronoscoper.android.securescreen'
 
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         applicationId "com.chronoscoper.android.securescreen"
         minSdk 23
