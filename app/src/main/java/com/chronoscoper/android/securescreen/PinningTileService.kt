@@ -2,7 +2,6 @@ package com.chronoscoper.android.securescreen
 
 import android.content.Intent
 import android.os.Build
-import android.os.IBinder
 import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
 

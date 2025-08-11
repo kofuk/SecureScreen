@@ -15,9 +15,7 @@
  */
 package com.chronoscoper.android.securescreen
 
-import android.app.Activity
 import android.app.ActivityManager
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -39,15 +37,16 @@ class SecureActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySecureBinding.inflate(layoutInflater)
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            @Suppress("DEPRECATION")
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         } else {
             overrideActivityTransition(
-                Activity.OVERRIDE_TRANSITION_OPEN,
+                OVERRIDE_TRANSITION_OPEN,
                 android.R.anim.fade_in,
                 android.R.anim.fade_out
             )
             overrideActivityTransition(
-                Activity.OVERRIDE_TRANSITION_CLOSE,
+                OVERRIDE_TRANSITION_CLOSE,
                 android.R.anim.fade_in,
                 android.R.anim.fade_out
             )
@@ -111,7 +110,7 @@ class SecureActivity : AppCompatActivity() {
     }
 
     private fun isInLockTask(): Boolean {
-        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val activityManager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
         return activityManager.lockTaskModeState != ActivityManager.LOCK_TASK_MODE_NONE
     }
 
@@ -127,6 +126,7 @@ class SecureActivity : AppCompatActivity() {
     override fun finish() {
         super.finish()
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            @Suppress("DEPRECATION")
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
