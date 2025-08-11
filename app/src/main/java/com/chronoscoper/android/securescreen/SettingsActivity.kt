@@ -34,6 +34,8 @@ import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import com.chronoscoper.android.securescreen.databinding.ActivitySettingsBinding
 import com.chronoscoper.library.licenseviewer.LicenseViewer
+import androidx.core.net.toUri
+import androidx.core.content.edit
 
 class SettingsActivity : AppCompatActivity() {
     companion object {
@@ -146,21 +148,21 @@ class SettingsActivity : AppCompatActivity() {
     private fun setupStartOnBootSwitch() = binding.startOnBoot.apply {
         isChecked = preferences.getBoolean("start_on_boot", false)
         setOnCheckedChangeListener { _, isChecked ->
-            preferences.edit().putBoolean("start_on_boot", isChecked).apply()
+            preferences.edit { putBoolean("start_on_boot", isChecked) }
         }
     }
 
     private fun setupFinishOnBackPressedSwitch() = binding.finishOnBackPressed.apply {
         isChecked = preferences.getBoolean("finish_on_back_pressed", false)
         setOnCheckedChangeListener { _, isChecked ->
-            preferences.edit().putBoolean("finish_on_back_pressed", isChecked).apply()
+            preferences.edit { putBoolean("finish_on_back_pressed", isChecked) }
         }
     }
 
     private fun setupFinishButtonSwitch() = binding.finishButton.apply {
         isChecked = preferences.getBoolean("finish_button", true)
         setOnCheckedChangeListener { _, isChecked ->
-            preferences.edit().putBoolean("finish_button", isChecked).apply()
+            preferences.edit { putBoolean("finish_button", isChecked) }
         }
     }
 
@@ -169,10 +171,10 @@ class SettingsActivity : AppCompatActivity() {
             try {
                 startActivity(
                     Intent(
-                        Intent.ACTION_VIEW, Uri.parse(GITHUB_REPO_URL)
+                        Intent.ACTION_VIEW, GITHUB_REPO_URL.toUri()
                     )
                 )
-            } catch (ignore: ActivityNotFoundException) {
+            } catch (_: ActivityNotFoundException) {
             }
         }
         binding.version.text = BuildConfig.VERSION_NAME
@@ -180,10 +182,10 @@ class SettingsActivity : AppCompatActivity() {
             try {
                 startActivity(
                     Intent(
-                        Intent.ACTION_VIEW, Uri.parse(DEVELOPER_WEB_ADDRESS)
+                        Intent.ACTION_VIEW, DEVELOPER_WEB_ADDRESS.toUri()
                     )
                 )
-            } catch (ignore: ActivityNotFoundException) {
+            } catch (_: ActivityNotFoundException) {
             }
         }
         binding.ossLicense.setOnClickListener {
